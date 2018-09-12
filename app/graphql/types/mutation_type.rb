@@ -1,15 +1,7 @@
 Types::MutationType = GraphQL::ObjectType.define do
   name "Mutation"
 
-  field :createUser, Types::UserType do
-    argument :email, !types.String
-
-    resolve -> (obj, args, ctx) {
-      User.create(
-        email: args[:email],
-      )
-    }
-  end
+  field :createUser, function: Resolvers::CreateUser.new
 
   field :createAccount, Types::AccountType do
     argument :balance, !types.Float
@@ -36,16 +28,26 @@ Types::MutationType = GraphQL::ObjectType.define do
 	    )
     }
   end
-  
+
   field :createRisk, Types::RiskType do
     argument :risk, !types.Float
-  	argument :accountId, types.ID
   	type Types::RiskType
 
     resolve -> (obj, args, ctx) {
 	    Risk.create!(
-	      account: Account.find_by(id: args[:accountId]),
 	      risk: args[:risk]
+	    )
+    }
+  end
+  field :createAccountRisk, Types::RiskType do
+  	argument :riskId, types.ID
+  	argument :accountId, types.ID
+  	type Types::AccountRisksType
+
+    resolve -> (obj, args, ctx) {
+	    AccountRisk.create!(
+	      account: Account.find_by(id: args[:accountId]),
+	      risk: Risk.find_by(id: args[:riskId]),
 	    )
     }
   end

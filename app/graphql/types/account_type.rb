@@ -5,10 +5,10 @@ Types::AccountType = GraphQL::ObjectType.define do
   field :balance, !types.Float
   field :user, -> { Types::UserType }
   field :contract, -> { Types::ContractType }
-	field :risks do
-		type types[Types::RiskType]
+	field :account_risks do
+	type types[Types::AccountRisksType]
 		resolve -> (obj, args, ctx) {
-		  obj.risk
+		  obj.account_risk
 		}
 	end
 	

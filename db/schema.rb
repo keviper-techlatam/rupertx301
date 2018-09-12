@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_032049) do
+ActiveRecord::Schema.define(version: 2018_09_12_040448) do
+
+  create_table "account_risks", force: :cascade do |t|
+    t.integer "account_id"
+    t.integer "risk_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_risks_on_account_id"
+    t.index ["risk_id"], name: "index_account_risks_on_risk_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id"
@@ -33,7 +42,6 @@ ActiveRecord::Schema.define(version: 2018_09_12_032049) do
     t.float "risk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_risks_on_account_id"
   end
 
   create_table "users", force: :cascade do |t|
