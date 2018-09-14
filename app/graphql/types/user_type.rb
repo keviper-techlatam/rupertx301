@@ -10,4 +10,10 @@ Types::UserType = GraphQL::ObjectType.define do
 		  obj.accounts
 		}
 	end
+	# field :notifications do
+	# 	type types[Types::NotificationType]
+	# 	resolve -> (obj, args, ctx) {
+	# 	  obj.notifications
+	# 	}
+	# end
 end

@@ -59,3 +59,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'graphql', '~> 1.8', '>= 1.8.8'
 gem 'graphiql-rails', group: :development
+
+gem "mongoid"
+gem 'bson_ext'

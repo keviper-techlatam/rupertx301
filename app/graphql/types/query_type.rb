@@ -10,6 +10,14 @@ Types::QueryType = GraphQL::ObjectType.define do
       User.all
     }
   end
+  field :allNotification do
+    type types[Types::NotificationType]
+    description "A list of all the Notification"
+
+    resolve -> (obj, args, ctx) {
+      Notification.all
+    }
+  end
 
   field :user do
     type Types::UserType

@@ -18,35 +18,49 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   field :createContract, Types::ContractType do
     argument :status, !types.String
-  	argument :accountId, types.ID
-  	type Types::ContractType
+    argument :accountId, types.ID
+    type Types::ContractType
 
     resolve -> (obj, args, ctx) {
-	    Contract.create!(
-	      account: Account.find_by(id: args[:accountId]),
-	      status: args[:status]
-	    )
+      Contract.create!(
+        account: Account.find_by(id: args[:accountId]),
+        status: args[:status]
+      )
     }
   end
 
   field :createRisk, Types::RiskType do
     argument :risk, !types.Float
-  	type Types::RiskType
+    type Types::RiskType
 
     resolve -> (obj, args, ctx) {
-	    Risk.create!(
-	      risk: args[:risk]
-	    )
+      Risk.create!(
+        risk: args[:risk]
+      )
     }
   end
-  field :createAccountRisk, Types::RiskType do
-  	argument :riskId, types.ID
-  	argument :accountId, types.ID
-  	type Types::AccountRisksType
+
+  field :createNotification, Types::NotificationType do
+    argument :notification, !types.String
+  	# argument :user_id, !types.ID
+    type Types::NotificationType
 
     resolve -> (obj, args, ctx) {
-	    AccountRisk.create!(
-	      account: Account.find_by(id: args[:accountId]),
+	    Notification.create!(
+	      # user_id: args[:user_id],
+        notification: args[:notification]
+      )
+    }
+  end
+
+  field :createAccountRisk, Types::RiskType do
+    argument :riskId, !types.ID
+    argument :accountId, !types.ID
+    type Types::AccountRisksType
+
+    resolve -> (obj, args, ctx) {
+      AccountRisk.create!(
+        account: Account.find_by(id: args[:accountId]),
 	      risk: Risk.find_by(id: args[:riskId]),
 	    )
     }
