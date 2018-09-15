@@ -1,5 +1,5 @@
 class Resolvers::CreateUser < GraphQL::Function
-  argument :email, types.ID
+  argument :email, types.String
   type Types::UserType
 
   def call(_obj, args, ctx)

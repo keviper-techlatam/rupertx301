@@ -3,17 +3,16 @@ Types::UserType = GraphQL::ObjectType.define do
   
 	field :id, !types.ID
 	field :email, !types.String
-
 	field :accounts do
 		type types[Types::AccountType]
 		resolve -> (obj, args, ctx) {
 		  obj.accounts
 		}
 	end
-	# field :notifications do
-	# 	type types[Types::NotificationType]
-	# 	resolve -> (obj, args, ctx) {
-	# 	  obj.notifications
-	# 	}
-	# end
+	field :notifications do
+		type types[Types::NotificationType]
+		resolve -> (obj, args, ctx) {
+		  obj.notifications
+		}
+	end
 end

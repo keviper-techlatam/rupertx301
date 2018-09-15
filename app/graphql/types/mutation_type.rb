@@ -2,67 +2,10 @@ Types::MutationType = GraphQL::ObjectType.define do
   name "Mutation"
 
   field :createUser, function: Resolvers::CreateUser.new
+  field :createAccount, function: Resolvers::CreateAccount.new
+  field :createContract, function: Resolvers::CreateContract.new
+  field :createRisk, function: Resolvers::CreateRisk.new
+  field :createNotification, function: Resolvers::CreateNotification.new
+  field :createAccountRisk, function: Resolvers::CreateAccountRisk.new
 
-  field :createAccount, Types::AccountType do
-    argument :balance, !types.Float
-  	argument :userID, types.ID
-  	type Types::AccountType
-
-    resolve -> (obj, args, ctx) {
-	    Account.create!(
-	      user: User.find_by(id: args[:userID]),
-	      balance: args[:balance]
-	    )
-    }
-  end
-
-  field :createContract, Types::ContractType do
-    argument :status, !types.String
-    argument :accountId, types.ID
-    type Types::ContractType
-
-    resolve -> (obj, args, ctx) {
-      Contract.create!(
-        account: Account.find_by(id: args[:accountId]),
-        status: args[:status]
-      )
-    }
-  end
-
-  field :createRisk, Types::RiskType do
-    argument :risk, !types.Float
-    type Types::RiskType
-
-    resolve -> (obj, args, ctx) {
-      Risk.create!(
-        risk: args[:risk]
-      )
-    }
-  end
-
-  field :createNotification, Types::NotificationType do
-    argument :notification, !types.String
-  	# argument :user_id, !types.ID
-    type Types::NotificationType
-
-    resolve -> (obj, args, ctx) {
-	    Notification.create!(
-	      # user_id: args[:user_id],
-        notification: args[:notification]
-      )
-    }
-  end
-
-  field :createAccountRisk, Types::RiskType do
-    argument :riskId, !types.ID
-    argument :accountId, !types.ID
-    type Types::AccountRisksType
-
-    resolve -> (obj, args, ctx) {
-      AccountRisk.create!(
-        account: Account.find_by(id: args[:accountId]),
-	      risk: Risk.find_by(id: args[:riskId]),
-	    )
-    }
-  end
 end
