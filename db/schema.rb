@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2018_09_12_040448) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "account_risks", force: :cascade do |t|
-    t.integer "account_id"
-    t.integer "risk_id"
+    t.bigint "account_id"
+    t.bigint "risk_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_risks_on_account_id"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2018_09_12_040448) do
   end
 
   create_table "accounts", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_09_12_040448) do
   end
 
   create_table "contracts", force: :cascade do |t|
-    t.integer "account_id"
+    t.bigint "account_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,7 +41,7 @@ ActiveRecord::Schema.define(version: 2018_09_12_040448) do
   end
 
   create_table "risks", force: :cascade do |t|
-    t.integer "account_id"
+    t.bigint "account_id"
     t.float "risk"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,4 +53,9 @@ ActiveRecord::Schema.define(version: 2018_09_12_040448) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "account_risks", "accounts"
+  add_foreign_key "account_risks", "risks"
+  add_foreign_key "accounts", "users"
+  add_foreign_key "contracts", "accounts"
+  add_foreign_key "risks", "accounts"
 end

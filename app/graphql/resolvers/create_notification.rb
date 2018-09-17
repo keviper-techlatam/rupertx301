@@ -4,9 +4,11 @@ class Resolvers::CreateNotification < GraphQL::Function
   type Types::NotificationType
 
   def call(_obj, args, ctx)
-	Notification.create(
-	  user_id: args[:user_id],
-	  notification: args[:notification]
-	)
+  	if User.find(args[:user_id])
+		Notification.create(
+		  user_id: args[:user_id],
+		  notification: args[:notification]
+		)
+  	end
   end
 end
