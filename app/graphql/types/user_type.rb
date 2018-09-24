@@ -3,6 +3,7 @@ Types::UserType = GraphQL::ObjectType.define do
   
 	field :id, !types.ID
 	field :email, !types.String
+	field :password, !types.String
 	field :accounts do
 		type types[Types::AccountType]
 		resolve -> (obj, args, ctx) {

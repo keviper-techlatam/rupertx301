@@ -62,3 +62,6 @@ gem 'graphiql-rails', group: :development
 
 gem "mongoid"
 gem 'bson_ext'
+
+gem 'devise'
+gem 'doorkeeper'
