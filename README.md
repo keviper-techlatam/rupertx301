@@ -37,10 +37,10 @@ gem 'doorkeeper'
 
 ## Relaciones
 
-User 1 -> M Account
-User 1 -> M Notification
-Account 1 -> 1 Contract
-Account M <-> Risk
+* User 1 -> M Account
+* User 1 -> M Notification
+* Account 1 -> 1 Contract
+* Account M <-> Risk
 
 ## Endpoints
 
