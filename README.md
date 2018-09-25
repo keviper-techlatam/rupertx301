@@ -40,7 +40,7 @@ gem 'doorkeeper'
 * User 1 -> M Account
 * User 1 -> M Notification
 * Account 1 -> 1 Contract
-* Account M <-> Risk
+* Account M <-> M Risk
 
 ## Endpoints
 
